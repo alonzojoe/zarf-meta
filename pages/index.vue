@@ -6,11 +6,10 @@
                     <div id="Posts" class="px-4 max-w-[600px] mx-auto">
 
                         <div 
-                            class="text-white" 
                             v-if="isPosts" v-for="post in posts" 
                             :key="post"
                         >
-                            {{ post }}
+                            <Post :post="post" @isDeleted="posts = []" />
                         </div>
 
                     </div>
@@ -34,7 +33,7 @@
         posts.value = [
             {
                 name: 'Joe Alonzo',
-                profile: 'https://placehold.co/100',
+                image: 'https://placehold.co/100',
                 text: 'This is the title',
                 picture: 'https://placehold.co/500',
             }
