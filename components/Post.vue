@@ -54,7 +54,7 @@
                         </button>
                         <div class="relative text-sm text-gray-500">
                             <div>
-                                <span>4</span>
+                                <span>3</span>
                                 likes
                             </div>
                         </div>
@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <div class="h-[1px] bg-gray-800 w-full mt-3" /></div>
+        <div class="h-[1px] bg-gray-800 w-full mt-3" />
     </div>
 </template>
 
