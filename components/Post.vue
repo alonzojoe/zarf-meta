@@ -83,7 +83,7 @@
 
 <script setup>
 import { useUserStore } from '~/stores/user';
-const useStore = useUserStore()
+const userStore = useUserStore()
 
 const runtimeConfig = useRuntimeConfig()
 let isMenu = ref(false)
