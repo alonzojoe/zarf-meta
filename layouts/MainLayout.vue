@@ -16,7 +16,7 @@
                 <button @click="navigateTo('/')" class="w-full h-full">
                     <Icon name="material-symbols:home-outline" size="35" color="#ffffff" />
                 </button>
-                <button @click="userStore.isMenuOverlay" class="w-full h-full">
+                <button @click="userStore.isMenuOverlay = true" class="w-full h-full">
                     <Icon name="material-symbols:edit-square-outline" size="35" color="#ffffff" />
                 </button>
                 <button @click="userStore.isLogoutOverlay = true" class="w-full h-full">
@@ -30,6 +30,6 @@
 </template>
 
 <script setup>
-import { useUserStore } from '../stores/user'
+import { useUserStore } from '~/stores/user'
 const userStore = useUserStore()
 </script>
