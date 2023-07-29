@@ -46,7 +46,7 @@
                                     </div>
     
                                     <label for="fileInput">
-                                        <Icon name="clarity:paperclip-line" color="#ffffff" size="25"/>
+                                        <Icon class="cursor-pointer" name="clarity:paperclip-line" color="#ffffff" size="25"/>
                                         <input
                                             ref="file" 
                                             type="file"
