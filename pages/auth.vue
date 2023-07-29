@@ -11,6 +11,7 @@
                 <div class="text-center mb-6 mt-4">Login / Register</div>
 
                 <button
+                    @click="login('github')"
                     class="
                         flex
                         items-center
@@ -26,7 +27,7 @@
                 
                 >
                     <div class="flex items-center gap-2 justify-center">
-                        <img class="w-full max-w-[30px] rounded-full" src="/github-logo.png" />
+                        <img class="w-full max-w-[30px] rounded-full" src="/github-logo.png" /> Github
                     </div>
                 </button>
             </div>
@@ -35,28 +36,25 @@
 </template>
 
 <script setup>
+const client = useSupabaseClient()
+const user = useSupabaseUser()
 
 
-// const client = useSupabaseClient()
-// const user = useSupabaseUser()
+watchEffect(() => {
+    if (user.value) {
+        return navigateTo('/')
+    }
+})
 
+const login = async (prov) => {
+    const { data, error } = await client.auth.signInWithOAuth({
+        provider: prov,
+    })
 
-// watchEffect(() => {
-//     if (userInfo.value) {
-//         return navigateTo('/')
-//     }
-// })
+    if (error) {
+        console.log(error)
+    }
 
-// const login = async (prov) => {
-//     const { data, error } = await client.auth.signInWithOAuth({
-//         provider: prov,
-//         redirectTo: window.location.origin
-//     })
-
-//     if (error) {
-//         console.log(error)
-//     }
-
-// }
+}
 
 </script>
