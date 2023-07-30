@@ -7,11 +7,12 @@ export const useUserStore = defineStore('user', {
         isLogoutOverlay: false
     }),
 
-    actions: () => ({
+    actions: {
         async getAllPosts() {
-            let res = await useFetch('/api/get-all-post')
-            this.posts = res.data
-            return res.data
+          let res = await useFetch('/api/get-all-post')
+          this.posts = res.data
+          console.log(res)
+          return res.data
         }
-    })
+    }
 })

@@ -99,4 +99,15 @@ const props = defineProps({ post: Object })
 
 const client = useSupabaseClient()
 const user = useSupabaseUser()
+
+const hasLikedComputed = computed(()=> {
+    if (!user.value) return
+    let res = false
+
+    props.post.likes.forEach(like => {
+        if (like.userId == user.value.identites[0].user_id && like.postId == props.post.Id) {
+            res = true
+        }
+    });
+})
 </script>

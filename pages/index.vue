@@ -34,8 +34,8 @@
 
 <script setup>
 import MainLayout from '../layouts/MainLayout.vue'
+import { useUserStore } from '../stores/user'
 
-import { useUserStore } from '../stores/user';
 const userStore = useUserStore()
 const user = useSupabaseUser()
 
@@ -65,6 +65,8 @@ onMounted(() => {
         posts.value = userStore.posts
         isPosts.value = true
     }
+
+    console.log(userStore)
 })
 
 watch(() => posts.value, () => { //call back function for mobile devices
