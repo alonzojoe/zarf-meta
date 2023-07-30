@@ -7,7 +7,11 @@
                     <div class="ml-2 font-semibold text-[18px]">{{ post.name }}</div>
                 </div>
 
-                <div @click="isMenu = !isMenu" class="relative">
+                <div 
+                    v-if="user && user.identites && user.identites[0].user_id == post.userId"
+                    @click="isMenu = !isMenu" 
+                    class="relative"
+                >
 
                     <button
                         :disabled="isDeleting"
@@ -39,7 +43,7 @@
                     <img
                         v-if="post && post.picture"
                         class="mx-auto w-full mt-2 pr-2 rounded" 
-                        :src="post.picture"
+                        :src="runtimeConfig.public.bucketUrl + post.picture"
                     />
                     <div class="absolute mt-2 w-full ml-2">
                         <button
@@ -93,6 +97,6 @@ let isDeleting = ref(false)
 const emits = defineEmits(['isDeleted'])
 const props = defineProps({ post: Object })
 
-// const client = useSupabaseClient()
-// const user = useSupabaseUser()
+const client = useSupabaseClient()
+const user = useSupabaseUser()
 </script>

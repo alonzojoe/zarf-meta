@@ -51,6 +51,8 @@ const login = async (prov) => {
         provider: prov,
     })
 
+    console.log('data', data)
+
     if (error) {
         console.log(error)
     }
