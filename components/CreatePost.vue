@@ -123,7 +123,7 @@ const createPosts = async () => {
     if (fileData.value) {
         const { data, error } = await client
             .storage
-            .form('zarf-meta-files')
+            .from('zarf-meta-files')
             .upload(`${uuidv4()}.jpg`, fileData.value)
 
         dataOut = data

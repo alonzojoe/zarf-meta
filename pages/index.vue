@@ -16,7 +16,7 @@
                                         <div class="w-full mt-1">Loading...</div>
                                     </div>
                                 </div>
-                                <div v-else class="mt-20 w-full flex items-center justify-center mx-auto">
+                                <div v-else-if="!isLoading && !posts.length" class="mt-20 w-full flex items-center justify-center mx-auto">
                                     <div class="text-white mx-auto flex flex-col items-center justify-center">
                                         <Icon name="tabler:mood-empty" size="50" color="#ffffff" />
                                         <div class="w-full mt-1">Make the first posts!</div>
@@ -51,9 +51,9 @@ watchEffect(() => {
 
 onBeforeMount(async () => {
     try {
-        isLoading = true
+        isLoading.value = true
         await userStore.getAllPosts()
-        isLoading = false
+        isLoading.value = false
     } catch (error) {
         console.log(error)
     }
@@ -61,12 +61,16 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
-    if (userStore.posts && userStore.posts.length >= 1) {
-        posts.value = userStore.posts
-        isPosts.value = true
-    }
+    watchEffect(()=> {
+        isLoading.value = true
+        if (userStore.posts && userStore.posts.length >= 1) {
+            posts.value = userStore.posts
+            isPosts.value = true
+        }
+        isLoading.value = false
 
-    console.log(userStore)
+        console.log(userStore)
+    })
 })
 
 watch(() => posts.value, () => { //call back function for mobile devices
