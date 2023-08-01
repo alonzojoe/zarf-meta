@@ -121,6 +121,7 @@ const createPosts = async () => {
     isLoading.value = true
 
     if (fileData.value) {
+        console.log(fileData.value)
         const { data, error } = await client
             .storage
             .from('zarf-meta-files')

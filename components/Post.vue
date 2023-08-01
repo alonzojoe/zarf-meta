@@ -24,13 +24,14 @@
 
                     <div v-if="isMenu" class="absolute border border-gray-600 right-0 z-20 mt-1 rounded">
                         <button
-                            @click="deletePost(post.Id, post.picture)"
+                            @click="deletePost(post.id, post.picture)"
                             class="flex items-center rounded gap-2 text-red-500 justify-between bg-black w-full pl-4 pr-3 py-1 hover:bg-gray-900"
                         >
                             <div>Delete</div>
                             <Icon name="solar:trash-bin-trash-broken" size="20" />
                         </button>
                     </div>
+                 
 
                 </div>
 
@@ -67,6 +68,9 @@
                 </div>
             </div>
         </div>
+        <pre class="text-white">
+            {{ post }}
+        </pre>
 
         <div class="relative inline-block text-gray-500 pt-1 pb-1.5">
             <div class="flex items-center">
@@ -96,7 +100,7 @@ let isMenu = ref(false)
 let isLike = ref(false)
 let isDeleting = ref(false)
 
-const emits = defineEmits(['isDeleted'])
+const emit = defineEmits(['isDeleted'])
 const props = defineProps({ post: Object })
 
 const client = useSupabaseClient()
@@ -116,25 +120,33 @@ const hasLikedComputed = computed(()=> {
 })
 
 const deletePost = async (id, picture) => {
-    let res = confirm('Are you sure to delete this post?')
+    console.log(id, picture);
+ 
+    let res = confirm('Are you sure to delete this post?');
 
-    if(!res) return
+    if (!res) return;
 
     try {
-        isMenu.value = false
-        isDeleting.value = true
+        isMenu.value = false;
+        isDeleting.value = true;
 
-        const { data,error } = await client
-            .storage
-            .from('zarf-meta-files')
-            .remove([picture])
+        if (picture) {
+            const { data, error } = await client.storage.from('zarf-meta-files').remove([picture]);
+        }
 
-            await useFetch(`/api/delete-post/${id}`, { method: 'DELETE' })
-            emits('isDeleted', true)
-            isDeleting.value = false
+
+        await useFetch(`/api/delete-post/${id}`, { method: 'DELETE' });
+
+        emit('isDeleted', true);
+        isDeleting.value = false;
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
+
+onMounted(()=> {
+    console.log('client', client.storage.from('zarf-meta-files'))
+})
+
 
 </script>
